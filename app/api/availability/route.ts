@@ -1,12 +1,30 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { getAvailableSlots, isBookingServiceAvailable } from "@/lib/booking-availability"
 import { getTimesForWeekday } from "@/lib/pricing"
+import { getEnv } from "@/lib/cf-env"
+import { getOptionalRequestContext } from "@cloudflare/next-on-pages"
 
 export const runtime = "edge"
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 
 export async function GET(request: NextRequest) {
+  if (request.nextUrl.searchParams.get("debug") === "1") {
+    const ctx = getOptionalRequestContext()
+    const env = getEnv()
+    return NextResponse.json({
+      hasRequestContext: !!ctx,
+      hasCtxEnv: !!ctx?.env,
+      ctxEnvKeys: ctx?.env ? Object.keys(ctx.env as object) : [],
+      resolvedKeysPresent: {
+        MERCADOPAGO_ACCESS_TOKEN: !!env.MERCADOPAGO_ACCESS_TOKEN,
+        GOOGLE_SERVICE_ACCOUNT_EMAIL: !!env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+        GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: !!env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY,
+        GOOGLE_CALENDAR_ID: !!env.GOOGLE_CALENDAR_ID,
+      },
+    })
+  }
+
   const date = request.nextUrl.searchParams.get("date")
 
   if (!date || !DATE_RE.test(date)) {
