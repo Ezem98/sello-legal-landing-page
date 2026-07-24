@@ -5,6 +5,7 @@ import { findBookingById, updateBookingStatus } from "@/lib/bookings-sheet"
 import { consultationTypes, type ConsultationTypeKey } from "@/lib/pricing"
 import { slotToISO } from "@/lib/booking-availability"
 import { isResendConfigured, sendEmail } from "@/lib/resend"
+import { getEnv } from "@/lib/cf-env"
 
 export const runtime = "edge"
 
@@ -34,7 +35,7 @@ export async function POST(request: NextRequest) {
     dataId,
   })
 
-  if (process.env.MERCADOPAGO_WEBHOOK_SECRET && !validSignature) {
+  if (getEnv().MERCADOPAGO_WEBHOOK_SECRET && !validSignature) {
     return NextResponse.json({ error: "Firma inválida" }, { status: 401 })
   }
 
@@ -56,7 +57,7 @@ export async function POST(request: NextRequest) {
           | (typeof consultationTypes)[ConsultationTypeKey]
           | undefined
         const { startISO, endISO } = slotToISO(booking.date, booking.time)
-        const calendarId = process.env.GOOGLE_CALENDAR_ID as string
+        const calendarId = getEnv().GOOGLE_CALENDAR_ID as string
 
         const event = await createCalendarEvent({
           calendarId,

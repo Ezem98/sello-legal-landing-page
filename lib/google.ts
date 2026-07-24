@@ -1,11 +1,13 @@
 import { SignJWT, importPKCS8 } from "jose"
+import { getEnv } from "@/lib/cf-env"
 
 const GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 const SCOPES = ["https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/spreadsheets"]
 
 function getCreds() {
-  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
-  const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
+  const env = getEnv()
+  const email = env.GOOGLE_SERVICE_ACCOUNT_EMAIL
+  const privateKey = env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
   if (!email || !privateKey) return null
   return { email, privateKey: privateKey.replace(/\\n/g, "\n") }
 }

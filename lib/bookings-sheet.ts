@@ -1,5 +1,6 @@
 import { appendSheetRow, getSheetValues, updateSheetRow } from "@/lib/google"
 import { bookingSlots } from "@/lib/pricing"
+import { getEnv } from "@/lib/cf-env"
 
 const SHEET_TAB = "Reservas"
 const COLUMNS = [
@@ -36,7 +37,7 @@ export interface BookingRow {
 }
 
 function getSpreadsheetId() {
-  return process.env.GOOGLE_SHEETS_BOOKINGS_ID ?? null
+  return getEnv().GOOGLE_SHEETS_BOOKINGS_ID ?? null
 }
 
 function rowToBooking(row: string[], rowIndex: number): BookingRow {

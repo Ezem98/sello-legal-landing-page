@@ -2,12 +2,13 @@ import { getBusyIntervals, isGoogleConfigured } from "@/lib/google"
 import { isMercadoPagoConfigured } from "@/lib/mercadopago"
 import { isSlotTaken, listBookingRows } from "@/lib/bookings-sheet"
 import { bookingSlots, getTimesForWeekday } from "@/lib/pricing"
+import { getEnv } from "@/lib/cf-env"
 
 const ARG_OFFSET = "-03:00"
 const SLOT_MINUTES = 45
 
 export function isBookingServiceAvailable() {
-  return isGoogleConfigured() && isMercadoPagoConfigured() && !!process.env.GOOGLE_CALENDAR_ID
+  return isGoogleConfigured() && isMercadoPagoConfigured() && !!getEnv().GOOGLE_CALENDAR_ID
 }
 
 export function slotToISO(date: string, time: string) {
@@ -30,7 +31,7 @@ export async function getAvailableSlots(date: string): Promise<{ slots: string[]
     return { slots: [], degraded }
   }
 
-  const calendarId = process.env.GOOGLE_CALENDAR_ID
+  const calendarId = getEnv().GOOGLE_CALENDAR_ID
 
   const [busyIntervals, bookingRows] = await Promise.all([
     calendarId ? getBusyIntervals(calendarId, `${date}T00:00:00${ARG_OFFSET}`, `${date}T23:59:59${ARG_OFFSET}`) : null,

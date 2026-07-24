@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { appendSheetRow, isGoogleConfigured } from "@/lib/google"
 import { isResendConfigured, sendEmail } from "@/lib/resend"
+import { getEnv } from "@/lib/cf-env"
 
 export const runtime = "edge"
 
@@ -14,7 +15,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: "Email inválido" }, { status: 400 })
     }
 
-    const spreadsheetId = process.env.GOOGLE_SHEETS_WAITLIST_ID
+    const spreadsheetId = getEnv().GOOGLE_SHEETS_WAITLIST_ID
 
     if (isGoogleConfigured() && spreadsheetId) {
       await appendSheetRow(spreadsheetId, "Lista de Espera!A:B", [email, new Date().toISOString()])

@@ -1,12 +1,15 @@
+import { getEnv } from "@/lib/cf-env"
+
 const RESEND_API = "https://api.resend.com/emails"
 
 export function isResendConfigured() {
-  return !!process.env.RESEND_API_KEY
+  return !!getEnv().RESEND_API_KEY
 }
 
 export async function sendEmail(params: { to: string | string[]; subject: string; html: string; replyTo?: string }) {
-  const apiKey = process.env.RESEND_API_KEY
-  const from = process.env.RESEND_FROM_EMAIL || "no-reply@sello.legal"
+  const env = getEnv()
+  const apiKey = env.RESEND_API_KEY
+  const from = env.RESEND_FROM_EMAIL || "no-reply@sello.legal"
   if (!apiKey) return null
 
   const res = await fetch(RESEND_API, {

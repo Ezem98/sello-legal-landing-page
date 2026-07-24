@@ -1,7 +1,9 @@
+import { getEnv } from "@/lib/cf-env"
+
 const MP_API = "https://api.mercadopago.com"
 
 function getAccessToken() {
-  return process.env.MERCADOPAGO_ACCESS_TOKEN ?? null
+  return getEnv().MERCADOPAGO_ACCESS_TOKEN ?? null
 }
 
 export function isMercadoPagoConfigured() {
@@ -68,7 +70,7 @@ export async function verifyWebhookSignature(params: {
   xRequestId: string | null
   dataId: string
 }) {
-  const secret = process.env.MERCADOPAGO_WEBHOOK_SECRET
+  const secret = getEnv().MERCADOPAGO_WEBHOOK_SECRET
   if (!secret || !params.xSignature || !params.xRequestId) return false
 
   const parts = Object.fromEntries(
