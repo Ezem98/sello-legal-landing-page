@@ -19,30 +19,34 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        serif: ["var(--font-lora)", "Georgia", "serif"],
+        sans: ["var(--font-poppins)", "system-ui", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "#FFFFFF",
-        foreground: "#967C52",
+        foreground: "#3A3A3A",
         primary: {
-          DEFAULT: "#967C52", // muted brown
+          DEFAULT: "#2D5045", // verde oscuro
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#F0F0D8", // light yellowish-beige
-          foreground: "#967C52",
+          DEFAULT: "#EDE1D3", // dorado claro
+          foreground: "#2D5045",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: "#FFFAEB", // very light beige
-          foreground: "#967C52",
+          DEFAULT: "#F5F0E8", // crema
+          foreground: "#6B5D4F",
         },
         accent: {
-          DEFAULT: "#0CA5B0", // teal accent
+          DEFAULT: "#C1573A", // terracota (CTA)
           foreground: "#FFFFFF",
         },
         popover: {
@@ -51,33 +55,38 @@ const config: Config = {
         },
         card: {
           DEFAULT: "#FFFFFF",
-          foreground: "#967C52",
+          foreground: "#3A3A3A",
         },
-        // Custom colors from new palette
-        teal: {
-          DEFAULT: "#0CA5B0",
-          50: "#E6F7F8",
-          100: "#B3E8EB",
-          500: "#0CA5B0",
-        },
-        sage: {
-          DEFAULT: "#A5B3AA",
-          50: "#F5F7F6",
-          100: "#E8EDEA",
+        // Paleta de marca Sello Legal
+        green: {
+          DEFAULT: "#2D5045",
+          50: "#EAF0EE",
+          100: "#D3E0DB",
+          600: "#264238",
+          700: "#1F362E",
+          900: "#152420",
         },
         cream: {
-          DEFAULT: "#FEFEEB",
-          100: "#F8F4E4",
+          DEFAULT: "#F5F0E8",
+          50: "#FCFAF6",
+          100: "#FBF8F3",
         },
-        brown: {
-          DEFAULT: "#967C52",
-          dark: "#4E3F30",
+        gold: {
+          DEFAULT: "#B8966E",
+          50: "#F7F1EA",
+          100: "#EDE1D3",
+          200: "#DDC7AD",
+          600: "#A17F58",
         },
-        beige: {
-          50: "#FFFAEB",
-          100: "#F0F0D8",
-          200: "#CFCFCF",
-          300: "#967C52",
+        terracotta: {
+          DEFAULT: "#C1573A",
+          50: "#FBEEEB",
+          100: "#F5DBD3",
+          600: "#A8472E",
+          700: "#8F3B26",
+        },
+        charcoal: {
+          DEFAULT: "#3A3A3A",
         },
       },
       borderRadius: {
