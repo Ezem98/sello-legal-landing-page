@@ -18,8 +18,8 @@ export default function SelloLegalLanding() {
       <Header />
       <Hero />
       <TrustedBrands />
-      <Team />
       <Services />
+      <Team />
       <WhyUs />
       <Guides />
       <Social />

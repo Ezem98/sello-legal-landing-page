@@ -1,30 +1,34 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Shield, FileText, Users, CheckCircle } from "lucide-react"
+import { Shield, FileText, Users, Globe, CheckCircle } from "lucide-react"
 
 const services = [
   {
     icon: Shield,
     title: "Propiedad Intelectual",
-    description: "Protección integral de marcas, patentes, derechos de autor y secretos comerciales.",
-    items: ["Registro de marcas", "Patentes y modelos de utilidad", "Derechos de autor"],
+    description:
+      "Tu marca, tu logo y tus creaciones son parte del valor de tu negocio. Te ayudamos a registrarlos y a defenderlos para que nadie más pueda usarlos ni copiarlos.",
+    items: ["Registro de marcas", "Patentes y modelos de utilidad", "Derechos de autor", "Vigilancia marcaria"],
   },
   {
     icon: FileText,
     title: "Compliance",
-    description: "Programas de cumplimiento normativo y gestión de riesgos legales.",
-    items: ["Auditorías legales", "Políticas internas", "Capacitación"],
+    description:
+      "Armamos programas simples para que tu empresa cumpla la normativa vigente desde el día uno, evitando multas y conflictos antes de que aparezcan.",
+    items: ["Auditorías legales", "Políticas internas", "Capacitación de equipos", "Prevención de riesgos"],
   },
   {
     icon: Users,
     title: "Derecho del Consumidor",
-    description: "Asesoría especializada en relaciones comerciales y protección al consumidor.",
-    items: ["Términos y condiciones", "Políticas de privacidad", "Defensa del consumidor"],
+    description:
+      "Ordenamos la relación con tus clientes para que sea clara desde la compra hasta el reclamo, cumpliendo con sus derechos y evitando sanciones.",
+    items: ["Términos y condiciones", "Políticas de privacidad", "Defensa ante reclamos", "Publicidad y promociones"],
   },
   {
-    icon: FileText,
-    title: "Términos y Condiciones",
-    description: "Documentos legales para entornos digitales",
+    icon: Globe,
+    title: "Documentos Digitales",
+    description:
+      "Redactamos los papeles legales que tu sitio, app o tienda online necesitan para operar de forma segura y profesional.",
     items: [
       "Términos y Condiciones web/app",
       "Políticas de Privacidad (GDPR)",
@@ -39,13 +43,14 @@ export function Services() {
     <section id="servicios" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <Badge className="mb-6 bg-terracotta text-white border-0">Nuestras Especialidades</Badge>
-          <h2 className="text-4xl font-serif font-bold mb-4 text-green-700">Servicios Especializados</h2>
+          <Badge className="mb-6 bg-terracotta text-white border-0">Áreas de Práctica</Badge>
+          <h2 className="text-4xl font-serif font-bold mb-4 text-green-700">En qué te podemos ayudar</h2>
           <p className="text-xl max-w-2xl mx-auto text-charcoal/70">
-            Servicios jurídicos especializados para emprendedores y empresas digitales
+            Acompañamos a emprendedores y empresas digitales en cada etapa legal de su negocio, con un lenguaje claro
+            y sin vueltas.
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
           {services.map((service) => (
             <Card
               key={service.title}
@@ -58,7 +63,7 @@ export function Services() {
                 <CardTitle className="text-green-700 font-serif">{service.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="mb-4 text-charcoal/80">{service.description}</p>
+                <p className="mb-4 text-charcoal/80 leading-relaxed">{service.description}</p>
                 <ul className="space-y-2 text-sm text-charcoal/70">
                   {service.items.map((item) => (
                     <li key={item} className="flex items-center">
