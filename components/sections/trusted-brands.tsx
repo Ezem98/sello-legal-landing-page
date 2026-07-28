@@ -23,11 +23,11 @@ export function TrustedBrands() {
           {track.map((brand, i) => (
             <div
               key={`${brand.name}-${i}`}
-              className="flex items-center justify-center mx-4 h-20 min-w-[180px] px-6 rounded-xl border border-gold-200 bg-white"
+              className="flex items-center justify-center mx-4 h-28 min-w-[200px] px-6 rounded-xl border border-gold-200 bg-white"
             >
               {brand.logoSrc ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={brand.logoSrc} alt={brand.name} className="max-h-10 max-w-full object-contain" />
+                <img src={brand.logoSrc} alt={brand.name} className="max-h-20 max-w-full object-contain" />
               ) : (
                 <span className="font-serif text-lg text-green-700 whitespace-nowrap">{brand.name}</span>
               )}

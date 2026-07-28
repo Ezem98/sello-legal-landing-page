@@ -3,12 +3,12 @@ export interface TrustedBrand {
   logoSrc?: string
 }
 
-// TODO: reemplazar por las marcas reales (nombre y, si hay, /brands/<archivo>.png)
 export const trustedBrands: TrustedBrand[] = [
-  { name: "Marca 1" },
-  { name: "Marca 2" },
-  { name: "Marca 3" },
-  { name: "Marca 4" },
-  { name: "Marca 5" },
-  { name: "Marca 6" },
+  { name: "Almendra's Food Sin TACC", logoSrc: "/brands/almedra's-food-sin-tacc.jpg" },
+  { name: "Café Psicológico", logoSrc: "/brands/cafe-psicologico.png" },
+  { name: "Goni", logoSrc: "/brands/goni.jpg" },
+  { name: "Marh", logoSrc: "/brands/marh.png" },
+  { name: "Pilates Life Studio", logoSrc: "/brands/pilates-life-studio.jpg" },
+  { name: "Red Room", logoSrc: "/brands/red-room.png" },
+  { name: "Ruesme Macramé", logoSrc: "/brands/ruesme-macrame.jpg" },
 ]
