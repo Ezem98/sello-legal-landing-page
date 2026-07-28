@@ -5,7 +5,7 @@ import { bookingSlots, getTimesForWeekday } from "@/lib/pricing"
 import { getEnv } from "@/lib/cf-env"
 
 const ARG_OFFSET = "-03:00"
-const SLOT_MINUTES = 45
+const SLOT_MINUTES = 30
 
 export function isBookingServiceAvailable() {
   return isGoogleConfigured() && isMercadoPagoConfigured() && !!getEnv().GOOGLE_CALENDAR_ID

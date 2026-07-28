@@ -1,9 +1,9 @@
 export const consultationTypes = {
-  "consulta-inicial": { label: "Consulta Inicial", minutes: 45, price: 50000 },
-  "propiedad-intelectual": { label: "Propiedad Intelectual", minutes: 45, price: 50000 },
-  compliance: { label: "Compliance", minutes: 45, price: 50000 },
-  "terminos-condiciones": { label: "Términos y Condiciones", minutes: 45, price: 50000 },
-  "derecho-consumidor": { label: "Derecho del Consumidor", minutes: 45, price: 50000 },
+  "consulta-inicial": { label: "Consulta Inicial", minutes: 30, price: 50000 },
+  "propiedad-intelectual": { label: "Propiedad Intelectual", minutes: 30, price: 50000 },
+  compliance: { label: "Compliance", minutes: 30, price: 50000 },
+  "terminos-condiciones": { label: "Términos y Condiciones", minutes: 30, price: 50000 },
+  "derecho-consumidor": { label: "Derecho del Consumidor", minutes: 30, price: 50000 },
 } as const
 
 export type ConsultationTypeKey = keyof typeof consultationTypes
