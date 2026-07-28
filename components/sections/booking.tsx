@@ -113,14 +113,14 @@ export function Booking() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+        <div className="grid grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto mb-12">
           {howItWorksSteps.map((step) => (
-            <div key={step.number} className="text-center">
-              <div className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-xl font-serif font-bold bg-green-700 shadow-lg">
+            <div key={step.number} className="text-center px-1">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full mx-auto mb-2 sm:mb-4 flex items-center justify-center text-white text-base sm:text-xl font-serif font-bold bg-green-700 shadow-lg">
                 {step.number}
               </div>
-              <h3 className="text-lg font-serif font-semibold mb-1 text-green-700">{step.title}</h3>
-              <p className="text-sm text-charcoal/70">{step.description}</p>
+              <h3 className="text-sm sm:text-lg font-serif font-semibold mb-1 text-green-700">{step.title}</h3>
+              <p className="text-xs sm:text-sm text-charcoal/70">{step.description}</p>
             </div>
           ))}
         </div>
