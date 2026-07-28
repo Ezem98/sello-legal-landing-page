@@ -47,7 +47,7 @@ export function Footer() {
               <li>Propiedad Intelectual</li>
               <li>Compliance</li>
               <li>Derecho del Consumidor</li>
-              <li>Términos y Condiciones</li>
+              <li>Documentos Digitales</li>
             </ul>
           </div>
           <div>
