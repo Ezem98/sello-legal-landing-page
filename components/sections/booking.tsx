@@ -15,6 +15,16 @@ import { whatsappUrl } from "@/lib/site-config"
 
 const priceFormatter = new Intl.NumberFormat("es-AR")
 
+const howItWorksSteps = [
+  { number: 1, title: "Agenda", description: "Selecciona fecha, hora y tipo de consulta" },
+  {
+    number: 2,
+    title: "Pagás y Confirmamos",
+    description: "Pagás con Mercado Pago y te enviamos el link de Google Meet por email",
+  },
+  { number: 3, title: "Nos Conectamos", description: "Resolvemos tus dudas legales en tiempo real" },
+]
+
 export function Booking() {
   const [consultationType, setConsultationType] = useState<ConsultationTypeKey | "">("")
   const [date, setDate] = useState("")
@@ -101,6 +111,18 @@ export function Booking() {
           <p className="text-xl max-w-2xl mx-auto text-charcoal/70">
             Elegí el día, hora y tipo de consulta. Todas nuestras reuniones son 100% virtuales vía Google Meet.
           </p>
+        </div>
+
+        <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+          {howItWorksSteps.map((step) => (
+            <div key={step.number} className="text-center">
+              <div className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-xl font-serif font-bold bg-green-700 shadow-lg">
+                {step.number}
+              </div>
+              <h3 className="text-lg font-serif font-semibold mb-1 text-green-700">{step.title}</h3>
+              <p className="text-sm text-charcoal/70">{step.description}</p>
+            </div>
+          ))}
         </div>
 
         <div className="max-w-2xl mx-auto">

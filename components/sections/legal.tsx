@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site-config"
 export function Legal() {
   return (
     <>
-      <section className="py-16 bg-cream-50">
+      <section id="terminos" className="py-16 bg-cream-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-serif font-bold mb-8 text-center text-green-700">
@@ -80,7 +80,7 @@ export function Legal() {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section id="privacidad" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-serif font-bold mb-8 text-center text-green-700">Política de Privacidad</h2>

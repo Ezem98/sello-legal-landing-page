@@ -44,7 +44,7 @@ export function Contact() {
           <h2 className="text-4xl font-serif font-bold mb-4 text-green-700">Contacto</h2>
           <p className="text-xl text-charcoal/70">Estamos aquí para ayudarte</p>
         </div>
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+        <div className="max-w-lg mx-auto">
           <Card className="border border-gold-200 bg-white">
             <CardHeader>
               <CardTitle className="text-green-700 font-serif">Información de Contacto</CardTitle>
@@ -66,28 +66,29 @@ export function Contact() {
                   ))}
                 </div>
               </div>
+
               <a
                 href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 rounded-md bg-[#25D366] hover:bg-[#1ebe5a] text-white font-medium transition-colors"
+                className="flex items-center justify-center gap-2 mt-2 px-5 py-2.5 rounded-md bg-[#25D366] hover:bg-[#1ebe5a] text-white font-medium transition-colors"
               >
                 <WhatsAppIcon className="h-4 w-4" />
                 Consultanos por WhatsApp
               </a>
-            </CardContent>
-          </Card>
-          <Card className="border border-gold-200 bg-white">
-            <CardHeader>
-              <CardTitle className="text-green-700 font-serif">Envíanos un Mensaje</CardTitle>
-            </CardHeader>
-            <CardContent>
+
+              <div className="flex items-center gap-3 pt-2">
+                <div className="h-px flex-1 bg-gold-200" />
+                <p className="text-sm text-charcoal/60 whitespace-nowrap">o mandá tu duda por mail</p>
+                <div className="h-px flex-1 bg-gold-200" />
+              </div>
+
               {status === "success" ? (
-                <p className="text-green-700 font-medium py-4">
+                <p className="text-green-700 font-medium py-4 text-center">
                   ¡Gracias! Recibimos tu mensaje y te vamos a responder a la brevedad.
                 </p>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4 pt-1">
                   <Input name="name" placeholder="Tu nombre" required className="border-gold-200" />
                   <Input name="email" type="email" placeholder="Tu email" required className="border-gold-200" />
                   <Textarea name="message" placeholder="Tu mensaje" rows={4} required className="border-gold-200" />

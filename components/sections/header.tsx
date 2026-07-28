@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -18,11 +19,14 @@ const navLinks = [
 
 export function Header() {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+  const isHome = pathname === "/"
+  const withHome = (anchor: string) => (isHome ? anchor : `/${anchor}`)
 
   return (
     <header className="sticky top-0 z-40 bg-cream-50/95 backdrop-blur border-b border-gold-200">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="#top" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           <Image src="/logo-icon.png" alt="Sello Legal" width={64} height={44} className="object-contain" />
           <div className="whitespace-nowrap">
             <h1 className="text-lg font-serif font-bold tracking-wide text-green-700">SELLO LEGAL</h1>
@@ -34,7 +38,7 @@ export function Header() {
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={withHome(link.href)}
               className="text-sm font-medium text-charcoal/80 hover:text-terracotta transition-colors whitespace-nowrap"
             >
               {link.label}
@@ -44,7 +48,7 @@ export function Header() {
 
         <div className="hidden lg:block">
           <Button asChild className="bg-terracotta hover:bg-terracotta-600 text-white">
-            <a href="#consultas">Agendar Consulta</a>
+            <a href={withHome("#consultas")}>Agendar Consulta</a>
           </Button>
         </div>
 
@@ -59,7 +63,7 @@ export function Header() {
               {navLinks.map((link) => (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={withHome(link.href)}
                   onClick={() => setOpen(false)}
                   className="text-lg font-medium text-charcoal hover:text-terracotta transition-colors"
                 >
@@ -67,7 +71,7 @@ export function Header() {
                 </a>
               ))}
               <Button asChild className="bg-terracotta hover:bg-terracotta-600 text-white" onClick={() => setOpen(false)}>
-                <a href="#consultas">Agendar Consulta</a>
+                <a href={withHome("#consultas")}>Agendar Consulta</a>
               </Button>
             </nav>
           </SheetContent>

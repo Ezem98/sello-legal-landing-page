@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Instagram, Linkedin } from "lucide-react"
 import { TikTokIcon, SubstackIcon } from "@/components/icons"
 import { siteConfig } from "@/lib/site-config"
@@ -54,7 +55,21 @@ export function Footer() {
             <ul className="space-y-2 text-sm opacity-80">
               <li>Guías Especializadas</li>
               <li>Consultas Virtuales</li>
-              <li>Preguntas Frecuentes</li>
+              <li>
+                <Link href="/legal#faq" className="hover:underline">
+                  Preguntas Frecuentes
+                </Link>
+              </li>
+              <li>
+                <Link href="/legal#terminos" className="hover:underline">
+                  Términos y Condiciones
+                </Link>
+              </li>
+              <li>
+                <Link href="/legal#privacidad" className="hover:underline">
+                  Política de Privacidad
+                </Link>
+              </li>
             </ul>
           </div>
           <div>

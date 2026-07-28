@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 
 const team = [
@@ -83,6 +84,12 @@ export function Team() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <Link href="/nuestra-mision" className="text-terracotta font-medium hover:underline">
+            Conocé nuestra misión →
+          </Link>
         </div>
       </div>
     </section>

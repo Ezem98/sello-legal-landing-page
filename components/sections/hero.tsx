@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 
 export function Hero() {
   return (
@@ -18,9 +19,12 @@ export function Hero() {
         <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 leading-tight text-cream-50">
           Sello Legal
         </h1>
-        <p className="text-xl md:text-2xl font-medium text-cream-100/90">
+        <p className="text-xl md:text-2xl font-medium text-cream-100/90 mb-8">
           Protegemos tus ideas, respaldamos tu negocio
         </p>
+        <Button asChild className="bg-terracotta hover:bg-terracotta-600 text-white lg:hidden">
+          <a href="#consultas">Agendar Consulta</a>
+        </Button>
       </div>
     </section>
   )
