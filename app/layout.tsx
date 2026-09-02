@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Lora, Poppins } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 
 const lora = Lora({
@@ -37,6 +38,16 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${lora.variable} ${poppins.variable}`}>
       <body className="font-sans">{children}</body>
+      {/* Google tag (gtag.js) - seguimiento de conversiones de Google Ads */}
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-18347516303" strategy="afterInteractive" />
+      <Script id="google-ads-tag" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-18347516303');
+        `}
+      </Script>
     </html>
   )
 }
