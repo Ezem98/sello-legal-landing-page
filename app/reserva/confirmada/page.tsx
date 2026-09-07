@@ -1,10 +1,12 @@
 import Link from "next/link"
 import { CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ConversionPixel } from "@/components/conversion-pixel"
 
 export default function ReservaConfirmadaPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-cream-50 px-4 py-20">
+      <ConversionPixel />
       <div className="max-w-lg text-center">
         <CheckCircle2 className="h-16 w-16 text-green-700 mx-auto mb-6" />
         <h1 className="text-3xl font-serif font-bold text-green-700 mb-4">¡Pago recibido!</h1>

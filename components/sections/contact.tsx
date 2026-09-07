@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Phone, Mail, Clock } from "lucide-react"
 import { WhatsAppIcon } from "@/components/icons"
 import { siteConfig, whatsappUrl } from "@/lib/site-config"
+import { reportContactConversion } from "@/lib/gtag"
 
 type Status = "idle" | "loading" | "success" | "error"
 
@@ -31,6 +32,7 @@ export function Contact() {
       })
       if (!res.ok) throw new Error("failed")
       setStatus("success")
+      reportContactConversion()
       e.currentTarget.reset()
     } catch {
       setStatus("error")
@@ -71,6 +73,7 @@ export function Contact() {
                 href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={reportContactConversion}
                 className="flex items-center justify-center gap-2 mt-2 px-5 py-2.5 rounded-md bg-[#25D366] hover:bg-[#1ebe5a] text-white font-medium transition-colors"
               >
                 <WhatsAppIcon className="h-4 w-4" />

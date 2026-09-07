@@ -1,5 +1,8 @@
+"use client"
+
 import { WhatsAppIcon } from "@/components/icons"
 import { whatsappUrl } from "@/lib/site-config"
+import { reportContactConversion } from "@/lib/gtag"
 
 export function WhatsAppFloatButton() {
   return (
@@ -8,6 +11,7 @@ export function WhatsAppFloatButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Consultanos por WhatsApp"
+      onClick={reportContactConversion}
       className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#1ebe5a] text-white p-4 rounded-full shadow-lg transition-transform duration-300 hover:scale-110"
     >
       <WhatsAppIcon className="h-6 w-6" />
