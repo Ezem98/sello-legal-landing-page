@@ -6,7 +6,7 @@ import { ConversionPixel } from "@/components/conversion-pixel"
 export default function ReservaConfirmadaPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-cream-50 px-4 py-20">
-      <ConversionPixel />
+      <ConversionPixel type="booking" />
       <div className="max-w-lg text-center">
         <CheckCircle2 className="h-16 w-16 text-green-700 mx-auto mb-6" />
         <h1 className="text-3xl font-serif font-bold text-green-700 mb-4">¡Pago recibido!</h1>
