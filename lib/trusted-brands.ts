@@ -4,7 +4,7 @@ export interface TrustedBrand {
 }
 
 export const trustedBrands: TrustedBrand[] = [
-  { name: "Almendra's Food Sin TACC", logoSrc: "/brands/almedra's-food-sin-tacc.jpg" },
+  { name: "Almendra's Food Sin TACC", logoSrc: "/brands/almendras-food-sin-tacc.jpg" },
   { name: "Café Psicológico", logoSrc: "/brands/cafe-psicologico.png" },
   { name: "Goni", logoSrc: "/brands/goni.jpg" },
   { name: "Marh", logoSrc: "/brands/marh.png" },
