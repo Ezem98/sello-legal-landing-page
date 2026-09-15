@@ -17,6 +17,8 @@ const navLinks = [
   { href: "#contacto", label: "Contacto" },
 ]
 
+const recursosLink = { href: "/recursos", label: "Recursos" }
+
 export function Header() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
@@ -44,6 +46,12 @@ export function Header() {
               {link.label}
             </a>
           ))}
+          <a
+            href={recursosLink.href}
+            className="text-sm font-medium text-charcoal/80 hover:text-terracotta transition-colors whitespace-nowrap"
+          >
+            {recursosLink.label}
+          </a>
         </nav>
 
         <div className="hidden lg:block">
@@ -70,6 +78,13 @@ export function Header() {
                   {link.label}
                 </a>
               ))}
+              <a
+                href={recursosLink.href}
+                onClick={() => setOpen(false)}
+                className="text-lg font-medium text-charcoal hover:text-terracotta transition-colors"
+              >
+                {recursosLink.label}
+              </a>
               <Button asChild className="bg-terracotta hover:bg-terracotta-600 text-white" onClick={() => setOpen(false)}>
                 <a href={withHome("#consultas")}>Agendar Consulta</a>
               </Button>

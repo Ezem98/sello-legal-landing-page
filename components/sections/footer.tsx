@@ -44,7 +44,21 @@ export function Footer() {
           <div>
             <h4 className="font-serif font-semibold mb-4">Servicios</h4>
             <ul className="space-y-2 text-sm opacity-80">
-              <li>Propiedad Intelectual</li>
+              <li>
+                <Link href="/servicios/propiedad-intelectual" className="hover:underline">
+                  Propiedad Intelectual
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/registro-de-marcas" className="hover:underline">
+                  Registro de Marcas
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/derechos-de-autor" className="hover:underline">
+                  Derechos de Autor
+                </Link>
+              </li>
               <li>Compliance</li>
               <li>Derecho del Consumidor</li>
               <li>Documentos Digitales</li>
@@ -53,6 +67,11 @@ export function Footer() {
           <div>
             <h4 className="font-serif font-semibold mb-4">Recursos</h4>
             <ul className="space-y-2 text-sm opacity-80">
+              <li>
+                <Link href="/recursos" className="hover:underline">
+                  Blog
+                </Link>
+              </li>
               <li>Guías Especializadas</li>
               <li>Consultas Virtuales</li>
               <li>
