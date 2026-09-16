@@ -14,10 +14,10 @@ const links: { href: string; icon: typeof CalendarDays; title: string; subtitle:
     subtitle: "Reservá tu videollamada y pagá online",
   },
   {
-    href: "/nuestra-mision",
+    href: "/#equipo",
     icon: UserRound,
     title: "Sobre Nosotras",
-    subtitle: "Quiénes somos y cómo trabajamos",
+    subtitle: "Conocé al equipo",
   },
   {
     href: "/#servicios",
