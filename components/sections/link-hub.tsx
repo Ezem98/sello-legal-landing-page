@@ -92,7 +92,7 @@ export function LinkHub() {
           ))}
         </div>
 
-        <p className="text-cream-100/70 text-xs mt-10">
+        <p className="text-charcoal/70 text-xs mt-10 font-medium">
           &copy; {new Date().getFullYear()} Sello Legal
         </p>
       </div>
