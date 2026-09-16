@@ -59,9 +59,10 @@ export function Footer() {
                   Derechos de Autor
                 </Link>
               </li>
-              <li>Compliance</li>
+              <li>Sociedades</li>
+              <li>Contratos y Marketing Legal</li>
               <li>Derecho del Consumidor</li>
-              <li>Documentos Digitales</li>
+              <li>Compliance</li>
             </ul>
           </div>
           <div>

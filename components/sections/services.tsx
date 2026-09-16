@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Shield, FileText, Users, Globe, CheckCircle } from "lucide-react"
+import { Shield, Handshake, FileSignature, Users, FileText, CheckCircle } from "lucide-react"
 
 type ServiceItem = string | { label: string; href: string }
 
@@ -20,30 +20,39 @@ const services: { icon: typeof Shield; title: string; description: string; items
     href: "/servicios/propiedad-intelectual",
   },
   {
-    icon: FileText,
-    title: "Compliance",
+    icon: Handshake,
+    title: "Sociedades",
     description:
-      "Armamos programas simples para que tu empresa cumpla la normativa vigente desde el día uno, evitando multas y conflictos antes de que aparezcan.",
-    items: ["Auditorías legales", "Políticas internas", "Capacitación de equipos", "Prevención de riesgos"],
+      "Elegimos con vos la estructura societaria correcta desde el inicio y te acompañamos en cada cambio, para que los socios estén siempre protegidos.",
+    items: ["Constitución de sociedades (SAS, SRL, S.A.)", "Pactos de socios", "Modificaciones societarias"],
+  },
+  {
+    icon: FileSignature,
+    title: "Contratos y Marketing Legal",
+    description:
+      "Redactamos y revisamos los contratos y las piezas de marketing que tu negocio necesita para operar sin sorpresas legales.",
+    items: [
+      "Contratos con proveedores y creadores de contenido",
+      "Contratos de franquicia",
+      "Secreto comercial (NDA)",
+      "Términos y condiciones",
+      "Políticas de privacidad",
+      "Revisión legal de publicidades y promociones",
+    ],
   },
   {
     icon: Users,
     title: "Derecho del Consumidor",
     description:
       "Ordenamos la relación con tus clientes para que sea clara desde la compra hasta el reclamo, cumpliendo con sus derechos y evitando sanciones.",
-    items: ["Términos y condiciones", "Políticas de privacidad", "Defensa ante reclamos", "Publicidad y promociones"],
+    items: ["Términos y condiciones", "Políticas de privacidad", "Defensa ante reclamos"],
   },
   {
-    icon: Globe,
-    title: "Documentos Digitales",
+    icon: FileText,
+    title: "Compliance",
     description:
-      "Redactamos los papeles legales que tu sitio, app o tienda online necesitan para operar de forma segura y profesional.",
-    items: [
-      "Términos y Condiciones web/app",
-      "Políticas de Privacidad (GDPR)",
-      "Contratos electrónicos",
-      "Documentos para e-commerce",
-    ],
+      "Armamos programas simples para que tu empresa cumpla la normativa vigente desde el día uno, evitando multas y conflictos antes de que aparezcan.",
+    items: ["Auditorías legales", "Políticas internas", "Capacitación de equipos", "Prevención de riesgos"],
   },
 ]
 
@@ -59,7 +68,7 @@ export function Services() {
             y sin vueltas.
           </p>
         </div>
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {services.map((service) => (
             <Card
               key={service.title}
