@@ -13,9 +13,9 @@ const services: { icon: typeof Shield; title: string; description: string; items
       "Tu marca, tu logo y tus creaciones son parte del valor de tu negocio. Te ayudamos a registrarlos y a defenderlos para que nadie más pueda usarlos ni copiarlos.",
     items: [
       { label: "Registro de marcas", href: "/servicios/registro-de-marcas" },
-      "Patentes y modelos de utilidad",
+      { label: "Patentes y modelos de utilidad", href: "/servicios/propiedad-intelectual#areas" },
       { label: "Derechos de autor", href: "/servicios/derechos-de-autor" },
-      "Vigilancia marcaria",
+      { label: "Vigilancia marcaria", href: "/servicios/registro-de-marcas#vigilancia" },
     ],
     href: "/servicios/propiedad-intelectual",
   },
@@ -24,7 +24,12 @@ const services: { icon: typeof Shield; title: string; description: string; items
     title: "Sociedades",
     description:
       "Elegimos con vos la estructura societaria correcta desde el inicio y te acompañamos en cada cambio, para que los socios estén siempre protegidos.",
-    items: ["Constitución de sociedades (SAS, SRL, S.A.)", "Pactos de socios", "Modificaciones societarias"],
+    items: [
+      { label: "Constitución de sociedades (SAS, SRL, S.A.)", href: "/servicios/sociedades#tipo-de-sociedad" },
+      { label: "Pactos de socios", href: "/servicios/sociedades#pacto-de-socios" },
+      { label: "Modificaciones societarias", href: "/servicios/sociedades#modificaciones" },
+    ],
+    href: "/servicios/sociedades",
   },
   {
     icon: FileSignature,
@@ -32,27 +37,43 @@ const services: { icon: typeof Shield; title: string; description: string; items
     description:
       "Redactamos y revisamos los contratos y las piezas de marketing que tu negocio necesita para operar sin sorpresas legales.",
     items: [
-      "Contratos con proveedores y creadores de contenido",
-      "Contratos de franquicia",
-      "Secreto comercial (NDA)",
-      "Términos y condiciones",
-      "Políticas de privacidad",
-      "Revisión legal de publicidades y promociones",
+      { label: "Contratos con proveedores y creadores de contenido", href: "/servicios/contratos#proveedores" },
+      { label: "Contratos de franquicia", href: "/servicios/contratos#franquicia" },
+      { label: "Secreto comercial (NDA)", href: "/servicios/contratos#nda" },
+      { label: "Términos y condiciones", href: "/servicios/contratos#terminos" },
+      { label: "Políticas de privacidad", href: "/servicios/contratos#privacidad" },
+      { label: "Revisión legal de publicidades y promociones", href: "/servicios/contratos#publicidad" },
     ],
+    href: "/servicios/contratos",
   },
   {
     icon: Users,
     title: "Derecho del Consumidor",
     description:
       "Ordenamos la relación con tus clientes para que sea clara desde la compra hasta el reclamo, cumpliendo con sus derechos y evitando sanciones.",
-    items: ["Términos y condiciones", "Políticas de privacidad", "Defensa ante reclamos"],
+    items: [
+      { label: "Cumplimiento de la Ley de Defensa del Consumidor", href: "/servicios/derecho-del-consumidor#ley" },
+      { label: "Políticas de devoluciones y reintegros", href: "/servicios/derecho-del-consumidor#devoluciones" },
+      {
+        label: "Botón de arrepentimiento y normativa complementaria",
+        href: "/servicios/derecho-del-consumidor#boton-arrepentimiento",
+      },
+      { label: "Defensa ante reclamos", href: "/servicios/derecho-del-consumidor#reclamos" },
+    ],
+    href: "/servicios/derecho-del-consumidor",
   },
   {
     icon: FileText,
     title: "Compliance",
     description:
       "Armamos programas simples para que tu empresa cumpla la normativa vigente desde el día uno, evitando multas y conflictos antes de que aparezcan.",
-    items: ["Auditorías legales", "Políticas internas", "Capacitación de equipos", "Prevención de riesgos"],
+    items: [
+      { label: "Auditorías legales", href: "/servicios/compliance#auditoria" },
+      { label: "Políticas internas", href: "/servicios/compliance#politicas-internas" },
+      { label: "Capacitación de equipos", href: "/servicios/compliance#capacitacion" },
+      { label: "Prevención de riesgos", href: "/servicios/compliance#prevencion" },
+    ],
+    href: "/servicios/compliance",
   },
 ]
 

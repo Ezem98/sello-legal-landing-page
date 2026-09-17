@@ -59,10 +59,26 @@ export function Footer() {
                   Derechos de Autor
                 </Link>
               </li>
-              <li>Sociedades</li>
-              <li>Contratos y Marketing Legal</li>
-              <li>Derecho del Consumidor</li>
-              <li>Compliance</li>
+              <li>
+                <Link href="/servicios/sociedades" className="hover:underline">
+                  Sociedades
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/contratos" className="hover:underline">
+                  Contratos y Marketing Legal
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/derecho-del-consumidor" className="hover:underline">
+                  Derecho del Consumidor
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/compliance" className="hover:underline">
+                  Compliance
+                </Link>
+              </li>
             </ul>
           </div>
           <div>

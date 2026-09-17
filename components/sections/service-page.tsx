@@ -26,7 +26,7 @@ export function ServicePage({ content }: { content: ServicePageContent }) {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-3xl space-y-12">
           {content.sections.map((section) => (
-            <div key={section.heading}>
+            <div key={section.id} id={section.id} className="scroll-mt-24">
               <h2 className="text-2xl font-serif font-bold text-green-700 mb-4">{section.heading}</h2>
               <div className="space-y-4">
                 {section.body.map((paragraph) => (
