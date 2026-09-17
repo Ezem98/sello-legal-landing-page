@@ -89,26 +89,26 @@ export function Services() {
             y sin vueltas.
           </p>
         </div>
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="flex flex-wrap justify-center gap-8">
           {services.map((service) => (
             <Card
               key={service.title}
-              className="border border-gold-200 hover:shadow-xl transition-all duration-300 bg-cream-50 hover:-translate-y-1 flex flex-col"
+              className="w-full md:w-[calc(50%-1rem)] xl:w-[calc(33.333%-1.334rem)] border border-gold-200 hover:shadow-xl transition-all duration-300 bg-cream-50 hover:-translate-y-1 flex flex-col"
             >
-              <CardHeader>
+              <CardHeader className="items-center text-center">
                 <div className="w-12 h-12 bg-green rounded-lg flex items-center justify-center mb-4">
                   <service.icon className="h-6 w-6 text-white" />
                 </div>
                 <CardTitle className="text-green-700 font-serif">{service.title}</CardTitle>
               </CardHeader>
-              <CardContent className="flex flex-col flex-1">
+              <CardContent className="flex flex-col flex-1 items-center text-center">
                 <p className="mb-4 text-charcoal/80 leading-relaxed">{service.description}</p>
                 <ul className="space-y-2 text-sm text-charcoal/70 mb-4">
                   {service.items.map((item) => {
                     const isLink = typeof item === "object"
                     const label = isLink ? item.label : item
                     return (
-                      <li key={label} className="flex items-center">
+                      <li key={label} className="flex items-center justify-center">
                         <CheckCircle className="h-4 w-4 mr-2 text-terracotta shrink-0" />
                         {isLink ? (
                           <Link href={item.href} className="hover:text-terracotta hover:underline">
