@@ -103,12 +103,12 @@ export function Services() {
               </CardHeader>
               <CardContent className="flex flex-col flex-1 items-center text-center">
                 <p className="mb-4 text-charcoal/80 leading-relaxed">{service.description}</p>
-                <ul className="space-y-2 text-sm text-charcoal/70 mb-4">
+                <ul className="self-stretch text-left space-y-2 text-sm text-charcoal/70 mb-4">
                   {service.items.map((item) => {
                     const isLink = typeof item === "object"
                     const label = isLink ? item.label : item
                     return (
-                      <li key={label} className="flex items-center justify-center">
+                      <li key={label} className="flex items-center">
                         <CheckCircle className="h-4 w-4 mr-2 text-terracotta shrink-0" />
                         {isLink ? (
                           <Link href={item.href} className="hover:text-terracotta hover:underline">
