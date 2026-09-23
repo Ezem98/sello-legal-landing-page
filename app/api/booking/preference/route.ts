@@ -3,6 +3,9 @@ import { getAvailableSlots, isBookingServiceAvailable } from "@/lib/booking-avai
 import { appendPendingBooking } from "@/lib/bookings-sheet"
 import { createPreference } from "@/lib/mercadopago"
 import { consultationTypes, isConsultationTypeKey } from "@/lib/pricing"
+import { isResendConfigured, sendEmail } from "@/lib/resend"
+import { buildPendingLeadEmail } from "@/lib/email-templates"
+import { siteConfig } from "@/lib/site-config"
 
 export const runtime = "edge"
 
@@ -87,6 +90,23 @@ export async function POST(request: NextRequest) {
       details: details ?? "",
       mpPreferenceId: preference.id,
     })
+
+    if (phone?.trim() && details?.trim() && isResendConfigured()) {
+      try {
+        const lead = buildPendingLeadEmail({
+          name,
+          email,
+          phone,
+          details,
+          consultationType,
+          date,
+          time,
+        })
+        await sendEmail({ to: siteConfig.email, replyTo: email, ...lead })
+      } catch (mailError) {
+        console.error("No se pudo enviar el aviso de reserva pendiente:", mailError)
+      }
+    }
 
     return NextResponse.json({ success: true, initPoint: preference.initPoint })
   } catch (error) {

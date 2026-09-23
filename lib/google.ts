@@ -86,34 +86,61 @@ export async function createCalendarEvent(params: {
   const token = await getAccessToken()
   if (!token) throw new Error("Google no está configurado")
 
-  const res = await fetch(
-    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(params.calendarId)}/events?conferenceDataVersion=1&sendUpdates=all`,
-    {
+  const base = {
+    summary: params.summary,
+    description: params.description,
+    start: { dateTime: params.startISO, timeZone: "America/Argentina/Buenos_Aires" },
+    end: { dateTime: params.endISO, timeZone: "America/Argentina/Buenos_Aires" },
+    reminders: {
+      useDefault: false,
+      overrides: [
+        { method: "email", minutes: 24 * 60 },
+        { method: "popup", minutes: 24 * 60 },
+        { method: "email", minutes: 60 },
+        { method: "popup", minutes: 60 },
+      ],
+    },
+  }
+  const conference = {
+    conferenceData: {
+      createRequest: { requestId: crypto.randomUUID(), conferenceSolutionKey: { type: "hangoutsMeet" } },
+    },
+  }
+
+  // Las cuentas de servicio suelen tener prohibido invitar asistentes o crear Meet en calendarios
+  // personales: si Google rechaza, reintentamos con menos funciones para no perder el evento.
+  const attempts = [
+    { body: { ...base, attendees: [{ email: params.attendeeEmail }], ...conference }, query: "conferenceDataVersion=1&sendUpdates=all", invited: true },
+    { body: { ...base, ...conference }, query: "conferenceDataVersion=1", invited: false },
+    { body: base, query: "", invited: false },
+  ]
+
+  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(params.calendarId)}/events`
+  let lastError = ""
+
+  for (const attempt of attempts) {
+    const res = await fetch(attempt.query ? `${url}?${attempt.query}` : url, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        summary: params.summary,
-        description: params.description,
-        start: { dateTime: params.startISO, timeZone: "America/Argentina/Buenos_Aires" },
-        end: { dateTime: params.endISO, timeZone: "America/Argentina/Buenos_Aires" },
-        attendees: [{ email: params.attendeeEmail }],
-        conferenceData: {
-          createRequest: { requestId: crypto.randomUUID(), conferenceSolutionKey: { type: "hangoutsMeet" } },
-        },
-      }),
+      body: JSON.stringify(attempt.body),
+    })
+
+    if (res.ok) {
+      const data = await res.json()
+      return {
+        eventId: data.id as string,
+        meetLink: (data.hangoutLink as string | undefined) ?? null,
+        htmlLink: (data.htmlLink as string | undefined) ?? null,
+        attendeeInvited: attempt.invited,
+      }
     }
-  )
 
-  if (!res.ok) {
-    throw new Error(`Google calendar insert failed: ${res.status} ${await res.text()}`)
+    lastError = `${res.status} ${await res.text()}`
+    console.error("Google calendar insert falló, se reintenta con menos opciones:", lastError)
+    if (res.status !== 400 && res.status !== 403) break
   }
 
-  const data = await res.json()
-  return {
-    eventId: data.id as string,
-    meetLink: (data.hangoutLink as string | undefined) ?? null,
-    htmlLink: data.htmlLink as string,
-  }
+  throw new Error(`Google calendar insert failed: ${lastError}`)
 }
 
 // ---- Sheets ----

@@ -1,10 +1,16 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { createCalendarEvent } from "@/lib/google"
 import { getPayment, verifyWebhookSignature } from "@/lib/mercadopago"
-import { findBookingById, updateBookingStatus } from "@/lib/bookings-sheet"
+import { findBookingById, updateBookingStatus, type BookingRow } from "@/lib/bookings-sheet"
 import { consultationTypes, type ConsultationTypeKey } from "@/lib/pricing"
 import { slotToISO } from "@/lib/booking-availability"
 import { isResendConfigured, sendEmail } from "@/lib/resend"
+import {
+  buildAdminConfirmationEmail,
+  buildAdminFailureEmail,
+  buildClientConfirmationEmail,
+} from "@/lib/email-templates"
+import { siteConfig } from "@/lib/site-config"
 import { getEnv } from "@/lib/cf-env"
 
 export const runtime = "edge"
@@ -43,6 +49,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true })
   }
 
+  let paidBooking: BookingRow | null = null
+
   try {
     const payment = await getPayment(dataId)
     const booking = await findBookingById(payment.external_reference)
@@ -53,6 +61,7 @@ export async function POST(request: NextRequest) {
 
     if (payment.status === "approved") {
       if (booking.status !== "confirmed") {
+        paidBooking = booking
         const plan = consultationTypes[booking.consultationType as ConsultationTypeKey] as
           | (typeof consultationTypes)[ConsultationTypeKey]
           | undefined
@@ -67,6 +76,7 @@ export async function POST(request: NextRequest) {
             `Email: ${booking.email}`,
             `Teléfono: ${booking.phone}`,
             `Detalle: ${booking.details || "-"}`,
+            `Pago Mercado Pago #${payment.id}`,
           ].join("\n"),
           startISO,
           endISO,
@@ -80,29 +90,16 @@ export async function POST(request: NextRequest) {
         })
 
         if (isResendConfigured()) {
-          await sendEmail({
-            to: booking.email,
-            subject: "Confirmamos tu consulta - Sello Legal",
-            html: `<p>Hola ${booking.name},</p>
-<p>Tu consulta de <strong>${plan?.label ?? booking.consultationType}</strong> quedó confirmada para el ${booking.date} a las ${booking.time} hs.</p>
-${event.meetLink ? `<p>Link de Google Meet: <a href="${event.meetLink}">${event.meetLink}</a></p>` : ""}
-<p>Cualquier duda, escribinos a legalsello@gmail.com.</p>
-<p>Sello Legal</p>`,
-          })
-
-          await sendEmail({
-            to: "legalsello@gmail.com",
-            subject: `Nueva consulta confirmada: ${booking.name}`,
-            html: `<p>Nueva consulta pagada y confirmada:</p>
-<ul>
-<li>Tipo: ${plan?.label ?? booking.consultationType}</li>
-<li>Fecha: ${booking.date} ${booking.time}</li>
-<li>Nombre: ${booking.name}</li>
-<li>Email: ${booking.email}</li>
-<li>Teléfono: ${booking.phone}</li>
-<li>Detalle: ${booking.details || "-"}</li>
-</ul>`,
-          })
+          const clientMail = buildClientConfirmationEmail(booking, event.meetLink)
+          const adminMail = buildAdminConfirmationEmail(booking, event)
+          await Promise.all([
+            sendEmail({ to: booking.email, ...clientMail }).catch((e) =>
+              console.error("No se pudo enviar el mail de confirmación al cliente:", e)
+            ),
+            sendEmail({ to: siteConfig.email, replyTo: booking.email, ...adminMail }).catch((e) =>
+              console.error("No se pudo enviar el aviso de reserva confirmada:", e)
+            ),
+          ])
         }
       }
     } else if (payment.status === "rejected" || payment.status === "cancelled") {
@@ -112,6 +109,14 @@ ${event.meetLink ? `<p>Link de Google Meet: <a href="${event.meetLink}">${event.
     return NextResponse.json({ received: true })
   } catch (error) {
     console.error("Error en booking/webhook:", error)
+
+    if (paidBooking && isResendConfigured()) {
+      const alert = buildAdminFailureEmail(paidBooking, error instanceof Error ? error.message : String(error))
+      await sendEmail({ to: siteConfig.email, replyTo: paidBooking.email, ...alert }).catch((e) =>
+        console.error("No se pudo enviar la alerta de fallo de agendado:", e)
+      )
+    }
+
     return NextResponse.json({ error: "Error procesando el webhook" }, { status: 500 })
   }
 }
