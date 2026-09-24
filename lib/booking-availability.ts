@@ -8,7 +8,8 @@ const ARG_OFFSET = "-03:00"
 const SLOT_MINUTES = 30
 
 export function isBookingServiceAvailable() {
-  return isGoogleConfigured() && isMercadoPagoConfigured() && !!getEnv().GOOGLE_CALENDAR_ID
+  const env = getEnv()
+  return isGoogleConfigured() && isMercadoPagoConfigured() && !!env.GOOGLE_CALENDAR_ID && !!env.GOOGLE_SHEETS_BOOKINGS_ID
 }
 
 export function slotToISO(date: string, time: string) {

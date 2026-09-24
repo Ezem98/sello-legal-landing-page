@@ -49,12 +49,22 @@ function contactList(b: BookingContact) {
 </ul>`
 }
 
-export function buildPendingLeadEmail(b: BookingContact) {
+export interface SheetSaveResult {
+  saved: boolean
+  range?: string
+  error?: string
+}
+
+export function buildPendingLeadEmail(b: BookingContact, sheet: SheetSaveResult) {
+  const sheetNote = sheet.saved
+    ? `<p style="color:#555">Guardada en la planilla de reservas${sheet.range ? ` (${escapeHtml(sheet.range)})` : ""}.</p>`
+    : `<p><strong>ATENCIÓN: esta reserva NO se guardó en la planilla</strong> (${escapeHtml(sheet.error ?? "error desconocido")}). Copiá estos datos a mano y no la mandamos a pagar.</p>`
   return {
-    subject: `Nueva reserva sin pagar: ${b.name}`,
-    html: `<p>Alguien completó el formulario de reserva y fue redirigido a Mercado Pago. <strong>Todavía no hay pago confirmado</strong> — si no paga, es una buena oportunidad para contactarlo/a:</p>
+    subject: `${sheet.saved ? "" : "NO GUARDADA EN PLANILLA - "}Nueva reserva sin pagar: ${b.name}`,
+    html: `<p>Alguien completó el formulario de reserva${sheet.saved ? " y fue redirigido a Mercado Pago. <strong>Todavía no hay pago confirmado</strong> — si no paga, es una buena oportunidad para contactarlo/a" : ""}:</p>
 ${contactList(b)}
-<p>Si el pago se completa, te llega otro mail de "consulta confirmada" y se agenda en el calendario.</p>`,
+${sheetNote}
+${sheet.saved ? '<p>Si el pago se completa, te llega otro mail de "consulta confirmada" y se agenda en el calendario.</p>' : ""}`,
   }
 }
 

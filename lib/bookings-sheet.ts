@@ -93,11 +93,11 @@ export async function appendPendingBooking(params: {
   phone: string
   details: string
   mpPreferenceId: string
-}) {
+}): Promise<{ updatedRange: string }> {
   const spreadsheetId = getSpreadsheetId()
-  if (!spreadsheetId) return null
+  if (!spreadsheetId) throw new Error("GOOGLE_SHEETS_BOOKINGS_ID no está configurado")
 
-  return appendSheetRow(spreadsheetId, `${SHEET_TAB}!A:M`, [
+  const result = await appendSheetRow(spreadsheetId, `${SHEET_TAB}!A:M`, [
     params.bookingId,
     "pending",
     params.date,
@@ -112,6 +112,9 @@ export async function appendPendingBooking(params: {
     "",
     "",
   ])
+
+  if (!result) throw new Error("Google no está configurado")
+  return { updatedRange: (result.updates?.updatedRange as string | undefined) ?? "" }
 }
 
 export async function findBookingById(bookingId: string): Promise<BookingRow | null> {

@@ -9,6 +9,7 @@ import {
   buildAdminConfirmationEmail,
   buildAdminFailureEmail,
   buildClientConfirmationEmail,
+  escapeHtml,
 } from "@/lib/email-templates"
 import { siteConfig } from "@/lib/site-config"
 import { getEnv } from "@/lib/cf-env"
@@ -56,6 +57,14 @@ export async function POST(request: NextRequest) {
     const booking = await findBookingById(payment.external_reference)
 
     if (!booking) {
+      if (payment.status === "approved" && isResendConfigured()) {
+        await sendEmail({
+          to: siteConfig.email,
+          subject: "URGENTE: pago recibido sin reserva asociada en la planilla",
+          html: `<p>Mercado Pago aprobó un pago que no se pudo asociar a ninguna reserva de la planilla. Revisá la planilla y contactá al cliente para agendarlo a mano.</p>
+<ul><li>Pago #${escapeHtml(String(payment.id))}</li><li>Monto: $${escapeHtml(String(payment.transaction_amount))}</li><li>Email del pagador: ${escapeHtml(payment.payer?.email ?? "-")}</li><li>Referencia: ${escapeHtml(payment.external_reference ?? "-")}</li></ul>`,
+        }).catch((e) => console.error("No se pudo enviar la alerta de pago sin reserva:", e))
+      }
       return NextResponse.json({ received: true })
     }
 

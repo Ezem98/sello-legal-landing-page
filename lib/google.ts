@@ -150,7 +150,7 @@ export async function appendSheetRow(spreadsheetId: string, range: string, value
   if (!token) return null
 
   const res = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW`,
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
     {
       method: "POST",
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
@@ -163,6 +163,25 @@ export async function appendSheetRow(spreadsheetId: string, range: string, value
   }
 
   return res.json()
+}
+
+export async function getSpreadsheetMeta(spreadsheetId: string) {
+  const token = await getAccessToken()
+  if (!token) return null
+
+  const res = await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}?fields=properties.title,sheets.properties(title,gridProperties)`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  )
+
+  if (!res.ok) {
+    throw new Error(`Google sheets meta failed: ${res.status} ${await res.text()}`)
+  }
+
+  return (await res.json()) as {
+    properties?: { title?: string }
+    sheets?: { properties?: { title?: string; gridProperties?: { rowCount?: number; columnCount?: number } } }[]
+  }
 }
 
 export async function getSheetValues(spreadsheetId: string, range: string) {

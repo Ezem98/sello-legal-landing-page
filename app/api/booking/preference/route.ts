@@ -4,7 +4,7 @@ import { appendPendingBooking } from "@/lib/bookings-sheet"
 import { createPreference } from "@/lib/mercadopago"
 import { consultationTypes, isConsultationTypeKey } from "@/lib/pricing"
 import { isResendConfigured, sendEmail } from "@/lib/resend"
-import { buildPendingLeadEmail } from "@/lib/email-templates"
+import { buildPendingLeadEmail, type SheetSaveResult } from "@/lib/email-templates"
 import { siteConfig } from "@/lib/site-config"
 
 export const runtime = "edge"
@@ -79,33 +79,40 @@ export async function POST(request: NextRequest) {
       notificationUrl: `${origin}/api/booking/webhook`,
     })
 
-    await appendPendingBooking({
-      bookingId,
-      date,
-      time,
-      consultationType,
-      name,
-      email,
-      phone: phone ?? "",
-      details: details ?? "",
-      mpPreferenceId: preference.id,
-    })
+    let sheet: SheetSaveResult
+    try {
+      const { updatedRange } = await appendPendingBooking({
+        bookingId,
+        date,
+        time,
+        consultationType,
+        name,
+        email,
+        phone: phone ?? "",
+        details: details ?? "",
+        mpPreferenceId: preference.id,
+      })
+      sheet = { saved: true, range: updatedRange }
+    } catch (sheetError) {
+      console.error("No se pudo guardar la reserva en la planilla:", sheetError)
+      sheet = { saved: false, error: sheetError instanceof Error ? sheetError.message : String(sheetError) }
+    }
 
-    if (phone?.trim() && details?.trim() && isResendConfigured()) {
+    const hasFullContact = !!phone?.trim() && !!details?.trim()
+    if ((hasFullContact || !sheet.saved) && isResendConfigured()) {
       try {
-        const lead = buildPendingLeadEmail({
-          name,
-          email,
-          phone,
-          details,
-          consultationType,
-          date,
-          time,
-        })
+        const lead = buildPendingLeadEmail(
+          { name, email, phone: phone ?? "", details: details ?? "", consultationType, date, time },
+          sheet
+        )
         await sendEmail({ to: siteConfig.email, replyTo: email, ...lead })
       } catch (mailError) {
         console.error("No se pudo enviar el aviso de reserva pendiente:", mailError)
       }
+    }
+
+    if (!sheet.saved) {
+      return NextResponse.json({ success: false, message: "Error al crear la reserva" }, { status: 500 })
     }
 
     return NextResponse.json({ success: true, initPoint: preference.initPoint })
