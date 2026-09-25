@@ -68,6 +68,29 @@ ${sheet.saved ? '<p>Si el pago se completa, te llega otro mail de "consulta conf
   }
 }
 
+export function buildFreeLeadEmail(
+  lead: { name: string; email: string; phone: string; interest: string; details: string; source: string },
+  sheet: SheetSaveResult
+) {
+  const wa = whatsappLink(lead.phone, lead.name.split(" ")[0])
+  const sheetNote = sheet.saved
+    ? `<p style="color:#555">Guardado en la hoja "Leads"${sheet.range ? ` (${escapeHtml(sheet.range)})` : ""}.</p>`
+    : `<p><strong>ATENCIÓN: este lead NO se guardó en la planilla</strong> (${escapeHtml(sheet.error ?? "error desconocido")}). Copialo a mano.</p>`
+  return {
+    subject: `${sheet.saved ? "" : "NO GUARDADO EN PLANILLA - "}Nueva consulta gratuita: ${lead.name}`,
+    html: `<p>Alguien pidió la <strong>consulta inicial gratuita de 15 minutos</strong>. Contactalo/a para coordinar día y hora:</p>
+<ul>
+<li><strong>Nombre:</strong> ${escapeHtml(lead.name)}</li>
+<li><strong>Email:</strong> <a href="mailto:${escapeHtml(lead.email)}">${escapeHtml(lead.email)}</a></li>
+<li><strong>Teléfono:</strong> ${escapeHtml(lead.phone)}${wa ? ` — <a href="${wa}">escribirle por WhatsApp</a>` : ""}</li>
+<li><strong>Le interesa:</strong> ${escapeHtml(lead.interest || "-")}</li>
+<li><strong>Su caso:</strong> ${escapeHtml(lead.details).replace(/\n/g, "<br/>")}</li>
+<li><strong>Origen:</strong> ${escapeHtml(lead.source || "directo / orgánico")}</li>
+</ul>
+${sheetNote}`,
+  }
+}
+
 export function buildClientConfirmationEmail(b: BookingContact, meetLink: string | null) {
   return {
     subject: "Confirmamos tu consulta - Sello Legal",

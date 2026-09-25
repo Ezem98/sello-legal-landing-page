@@ -16,7 +16,7 @@ export default function ReservaErrorPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button asChild variant="outline" className="border-gold-200">
-            <Link href="/#consultas">Intentar de nuevo</Link>
+            <Link href="/#reservar">Intentar de nuevo</Link>
           </Button>
           <Button asChild className="bg-[#25D366] hover:bg-[#1ebe5a] text-white">
             <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">

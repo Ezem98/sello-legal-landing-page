@@ -165,6 +165,23 @@ export async function appendSheetRow(spreadsheetId: string, range: string, value
   return res.json()
 }
 
+export async function addSheetTab(spreadsheetId: string, title: string) {
+  const token = await getAccessToken()
+  if (!token) return null
+
+  const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ requests: [{ addSheet: { properties: { title } } }] }),
+  })
+
+  if (!res.ok) {
+    throw new Error(`Google sheets addSheet failed: ${res.status} ${await res.text()}`)
+  }
+
+  return res.json()
+}
+
 export async function getSpreadsheetMeta(spreadsheetId: string) {
   const token = await getAccessToken()
   if (!token) return null

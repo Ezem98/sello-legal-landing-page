@@ -3,7 +3,7 @@ import { Header } from "@/components/sections/header"
 import { Footer } from "@/components/sections/footer"
 import { WhatsAppFloatButton } from "@/components/whatsapp-float-button"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { ConsultCtaCard } from "@/components/sections/consult-cta-card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import type { ServicePageContent } from "@/lib/service-pages"
 
@@ -26,7 +26,7 @@ export function ServicePage({ content }: { content: ServicePageContent }) {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-3xl space-y-12">
           {content.sections.map((section) => (
-            <div key={section.id} id={section.id} className="scroll-mt-24">
+            <div key={section.id} id={section.id} className="scroll-mt-36">
               <h2 className="text-2xl font-serif font-bold text-green-700 mb-4">{section.heading}</h2>
               <div className="space-y-4">
                 {section.body.map((paragraph) => (
@@ -48,17 +48,7 @@ export function ServicePage({ content }: { content: ServicePageContent }) {
             </div>
           )}
 
-          <div className="rounded-2xl border border-gold-200 bg-cream-50 p-8 text-center">
-            <h3 className="text-xl font-serif font-semibold text-green-700 mb-2">
-              ¿Querés resolver esto en tu negocio?
-            </h3>
-            <p className="text-charcoal/70 mb-6">
-              Agendá una consulta y lo vemos juntas, en lenguaje claro y aplicado a tu caso.
-            </p>
-            <Button asChild className="bg-terracotta hover:bg-terracotta-600 text-white">
-              <Link href="/#consultas">Agendar Consulta</Link>
-            </Button>
-          </div>
+          <ConsultCtaCard />
         </div>
       </section>
 

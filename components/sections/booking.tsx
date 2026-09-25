@@ -103,7 +103,7 @@ export function Booking() {
   }
 
   return (
-    <section id="consultas" className="py-16 bg-cream-50">
+    <section id="reservar" className="py-16 bg-cream-50 scroll-mt-28">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <Badge className="mb-6 bg-terracotta text-white border-0 px-6 py-2">Reserva tu Cita</Badge>

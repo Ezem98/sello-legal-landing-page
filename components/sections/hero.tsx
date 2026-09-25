@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { HeroCta } from "@/components/sections/hero-cta"
 
 export function Hero() {
   return (
@@ -22,9 +22,7 @@ export function Hero() {
         <p className="text-xl md:text-2xl font-medium text-cream-100/90 mb-8">
           Protegemos tus ideas, respaldamos tu negocio
         </p>
-        <Button asChild className="bg-terracotta hover:bg-terracotta-600 text-white lg:hidden">
-          <a href="#consultas">Agendar Consulta</a>
-        </Button>
+        <HeroCta />
       </div>
     </section>
   )

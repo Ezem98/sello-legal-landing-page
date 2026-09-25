@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { freeConsultation } from "@/lib/site-config"
+import { useFreeOffer } from "@/lib/use-free-offer"
 
 const navLinks = [
   { href: "#equipo", label: "Equipo" },
@@ -22,11 +24,25 @@ const recursosLink = { href: "/recursos", label: "Recursos" }
 export function Header() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const freeOfferActive = useFreeOffer()
   const isHome = pathname === "/"
   const withHome = (anchor: string) => (isHome ? anchor : `/${anchor}`)
+  const ctaLabel = freeOfferActive ? "Consulta gratuita" : "Agendar Consulta"
 
   return (
     <header className="sticky top-0 z-40 bg-cream-50/95 backdrop-blur border-b border-gold-200">
+      {freeOfferActive && (
+        <a
+          href={withHome("#consultas")}
+          className="block bg-terracotta hover:bg-terracotta-600 transition-colors text-white text-center text-xs sm:text-sm px-3 py-1.5 sm:py-2"
+        >
+          <span className="font-semibold">
+            Consulta <span className="hidden sm:inline">inicial </span>gratuita de {freeConsultation.minutes} min
+          </span>
+          <span className="hidden sm:inline"> · hasta el {freeConsultation.endsLabel}</span>
+          <span className="underline underline-offset-2 ml-1.5 sm:ml-2">Presentanos tu caso →</span>
+        </a>
+      )}
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Image src="/logo-icon.png" alt="Sello Legal" width={64} height={44} className="object-contain" />
@@ -56,7 +72,7 @@ export function Header() {
 
         <div className="hidden lg:block">
           <Button asChild className="bg-terracotta hover:bg-terracotta-600 text-white">
-            <a href={withHome("#consultas")}>Agendar Consulta</a>
+            <a href={withHome("#consultas")}>{ctaLabel}</a>
           </Button>
         </div>
 
@@ -86,7 +102,7 @@ export function Header() {
                 {recursosLink.label}
               </a>
               <Button asChild className="bg-terracotta hover:bg-terracotta-600 text-white" onClick={() => setOpen(false)}>
-                <a href={withHome("#consultas")}>Agendar Consulta</a>
+                <a href={withHome("#consultas")}>{ctaLabel}</a>
               </Button>
             </nav>
           </SheetContent>

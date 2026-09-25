@@ -1,13 +1,17 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { CalendarDays, UserRound, Briefcase, BookOpen, Share2 } from "lucide-react"
 import { Instagram, Linkedin } from "lucide-react"
 import { TikTokIcon, SubstackIcon } from "@/components/icons"
 import { WhatsAppLinkItem } from "@/components/sections/whatsapp-link-item"
-import { siteConfig } from "@/lib/site-config"
+import { freeConsultation, siteConfig } from "@/lib/site-config"
+import { useFreeOffer } from "@/lib/use-free-offer"
 
-const links: { href: string; icon: typeof CalendarDays; title: string; subtitle: string }[] = [
+const links: { id?: string; href: string; icon: typeof CalendarDays; title: string; subtitle: string }[] = [
   {
+    id: "consulta",
     href: "/#consultas",
     icon: CalendarDays,
     title: "Agendar una Consulta",
@@ -47,6 +51,17 @@ const socialIcons = [
 ]
 
 export function LinkHub() {
+  const freeOfferActive = useFreeOffer()
+  const visibleLinks = links.map((link) =>
+    link.id === "consulta" && freeOfferActive
+      ? {
+          ...link,
+          title: "Consulta inicial gratuita",
+          subtitle: `${freeConsultation.minutes} minutos para presentarnos tu caso`,
+        }
+      : link
+  )
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-700 to-cream-50 flex flex-col items-center px-4 py-14">
       <div className="w-full max-w-md flex flex-col items-center text-center">
@@ -59,21 +74,31 @@ export function LinkHub() {
         </p>
 
         <div className="w-full flex flex-col gap-4">
-          {links.map((link) => (
-            <Link
-              key={link.title}
-              href={link.href}
-              className="flex items-center gap-4 w-full rounded-xl border border-gold-200 bg-white px-5 py-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
-            >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-700 text-white">
-                <link.icon className="h-5 w-5" />
-              </span>
-              <span className="text-left">
-                <span className="block font-serif font-semibold text-green-700">{link.title}</span>
-                <span className="block text-xs text-charcoal/60">{link.subtitle}</span>
-              </span>
-            </Link>
-          ))}
+          {visibleLinks.map((link) => {
+            const highlighted = link.id === "consulta" && freeOfferActive
+            return (
+              <Link
+                key={link.id ?? link.title}
+                href={link.href}
+                className={`relative flex items-center gap-4 w-full rounded-xl border bg-white px-5 py-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ${
+                  highlighted ? "border-terracotta border-2" : "border-gold-200"
+                }`}
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-700 text-white">
+                  <link.icon className="h-5 w-5" />
+                </span>
+                <span className="text-left">
+                  <span className="block font-serif font-semibold text-green-700">{link.title}</span>
+                  <span className="block text-xs text-charcoal/60">{link.subtitle}</span>
+                </span>
+                {highlighted && (
+                  <span className="absolute -top-2.5 right-4 rounded-full bg-terracotta px-2.5 py-0.5 text-xs font-semibold text-white">
+                    GRATIS
+                  </span>
+                )}
+              </Link>
+            )
+          })}
           <WhatsAppLinkItem />
         </div>
 

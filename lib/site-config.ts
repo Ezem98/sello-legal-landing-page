@@ -13,6 +13,19 @@ export const siteConfig = {
   },
 } as const
 
+// Oferta temporal: consulta inicial gratuita. Se oculta sola después de `endsAt`
+// (o poniendo enabled en false) y las consultas pagas siguen funcionando igual.
+export const freeConsultation = {
+  enabled: true,
+  minutes: 15,
+  endsAt: "2026-10-31T23:59:59-03:00",
+  endsLabel: "31 de octubre",
+} as const
+
+export function isFreeConsultationActive(now: Date = new Date()) {
+  return freeConsultation.enabled && now.getTime() <= new Date(freeConsultation.endsAt).getTime()
+}
+
 export function whatsappUrl(message: string = siteConfig.whatsappMessage) {
   return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`
 }
