@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { WhatsAppIcon } from "@/components/icons"
 import { freeConsultation, whatsappUrl } from "@/lib/site-config"
-import { reportContactConversion } from "@/lib/gtag"
+import { reportContactConversion, reportFreeConsultationConversion } from "@/lib/gtag"
 
 type Status = "idle" | "loading" | "success" | "error"
 
@@ -81,7 +81,7 @@ export function FreeConsultation() {
       if (!res.ok) throw new Error("failed")
       setFirstName(name.split(" ")[0])
       setStatus("success")
-      reportContactConversion()
+      reportFreeConsultationConversion()
     } catch {
       setStatus("error")
     }

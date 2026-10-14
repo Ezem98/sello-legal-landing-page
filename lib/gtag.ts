@@ -12,6 +12,12 @@ export function reportContactConversion() {
   fireConversion("AW-18347516303/r1KKCLTY0O0cEI_D46xE")
 }
 
+// Conversión "Consulta gratuita" de Google Ads (AW-18347516303). Se dispara solo
+// cuando el servidor confirma que el formulario de #consultas se recibió.
+export function reportFreeConsultationConversion() {
+  fireConversion("AW-18347516303/9xJeCNqu5ZUdEI_D46xE")
+}
+
 // Conversión "Agendar Consultas" de Google Ads (AW-18347516303),
 // categoría "Solicitud de cita". Se dispara solo cuando se confirma
 // una cita paga (página /reserva/confirmada).
