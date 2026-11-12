@@ -3,6 +3,7 @@
 import { useState } from "react"
 import type React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { CheckCircle2, Clock, Lock, ShieldCheck, Video } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -60,6 +61,8 @@ interface FreeConsultationProps {
   intro?: string
   // Link al pie hacia la reserva paga; null lo oculta.
   paidHref?: string | null
+  // Link al pie hacia la línea de tiempo de registro de marca; null lo oculta.
+  timelineHref?: string | null
   // Se agrega al campo "origen" del lead para saber de qué página vino.
   origin?: string
   defaultInterest?: string
@@ -70,6 +73,7 @@ export function FreeConsultation({
   headline = "Conocenos y presentanos tu caso",
   intro = `En ${freeConsultation.minutes} minutos, por videollamada, escuchamos lo que necesitás y te orientamos sobre los próximos pasos. Sin costo y sin compromiso.`,
   paidHref = "#reservar",
+  timelineHref = "/registra-tu-marca",
   origin,
   defaultInterest = "",
 }: FreeConsultationProps = {}) {
@@ -293,8 +297,20 @@ export function FreeConsultation({
           </Card>
         </div>
 
-        {paidHref && (
+        {timelineHref && (
           <p className="text-center mt-10 text-cream-100/80">
+            ¿Querés registrar tu marca?{" "}
+            <Link
+              href={timelineHref}
+              className="inline-block py-2 text-gold-200 font-medium underline underline-offset-4 hover:text-cream-50"
+            >
+              Mirá el camino paso a paso
+            </Link>
+          </p>
+        )}
+
+        {paidHref && (
+          <p className={`text-center text-cream-100/80 ${timelineHref ? "mt-2" : "mt-10"}`}>
             ¿Preferís elegir día y hora ya mismo?{" "}
             <a href={paidHref} className="text-gold-200 font-medium underline underline-offset-4 hover:text-cream-50">
               Reservá una consulta completa de 30 minutos

@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { freeConsultation } from "@/lib/site-config"
 import { useFreeOffer } from "@/lib/use-free-offer"
@@ -21,6 +22,12 @@ export function HeroCta() {
         <a href="#consultas">Quiero mi consulta gratuita de {freeConsultation.minutes} min</a>
       </Button>
       <p className="text-sm text-cream-100/80">Presentanos tu caso · Sin costo ni compromiso</p>
+      <Link
+        href="/registra-tu-marca"
+        className="inline-flex min-h-[44px] items-center text-base font-medium text-gold-100 underline underline-offset-4 hover:text-cream-50"
+      >
+        ¿Querés registrar tu marca? Mirá el camino paso a paso →
+      </Link>
     </div>
   )
 }

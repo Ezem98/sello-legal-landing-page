@@ -139,6 +139,7 @@ export default function RegistraTuMarcaPage() {
         headline="¿Arrancamos el camino con tu marca?"
         intro={`Te acompañamos desde el análisis hasta el registro. Empezá con una consulta gratuita de ${freeConsultation.minutes} minutos: nos contás tu caso y te orientamos sobre los próximos pasos.`}
         paidHref="/#reservar"
+        timelineHref={null}
         origin="registra-tu-marca"
         defaultInterest="Propiedad Intelectual (marcas, derechos de autor)"
       />
