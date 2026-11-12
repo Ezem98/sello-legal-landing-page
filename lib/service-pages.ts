@@ -113,7 +113,7 @@ export const servicePages: Record<string, ServicePageContent> = {
         id: "proceso",
         heading: "Cómo es el proceso de registro en Argentina",
         body: [
-          "Empieza con una búsqueda de antecedentes marcarios, para chequear que no exista ya algo igual o similar registrado en la misma clase de productos o servicios. Después se presenta la solicitud ante el INPI, se publica en el Boletín de Marcas (con un período de oposición de 30 días hábiles para terceros), y si no hay objeciones, se concede el registro.",
+          "Empieza con una búsqueda de antecedentes marcarios, para chequear que no exista ya algo igual o similar registrado en la misma clase de productos o servicios. Después se presenta la solicitud ante el INPI, se publica en el Boletín de Marcas (con un período de oposición de 30 días corridos para terceros), y si no hay objeciones, se concede el registro.",
           "El registro tiene una vigencia de 10 años y es renovable indefinidamente.",
         ],
       },
@@ -132,7 +132,7 @@ export const servicePages: Record<string, ServicePageContent> = {
     faqs: [
       {
         q: "¿Cuánto tarda el proceso de registro?",
-        a: "Depende de si hay oposiciones u observaciones durante el trámite, pero en un proceso sin objeciones suele tomar varios meses desde la presentación hasta la concesión. Lo importante es que la fecha de presentación queda como tu fecha de prioridad desde el día uno.",
+        a: "Depende de si hay oposiciones u observaciones durante el trámite, pero en un proceso sin objeciones suele tomar aproximadamente 3 meses desde la presentación hasta la concesión. Lo importante es que la fecha de presentación queda como tu fecha de prioridad desde el día uno.",
       },
       {
         q: "¿Qué pasa si alguien ya registró mi marca?",

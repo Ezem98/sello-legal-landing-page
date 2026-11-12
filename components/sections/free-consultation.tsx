@@ -54,7 +54,25 @@ function readAttribution() {
   }
 }
 
-export function FreeConsultation() {
+interface FreeConsultationProps {
+  id?: string
+  headline?: string
+  intro?: string
+  // Link al pie hacia la reserva paga; null lo oculta.
+  paidHref?: string | null
+  // Se agrega al campo "origen" del lead para saber de qué página vino.
+  origin?: string
+  defaultInterest?: string
+}
+
+export function FreeConsultation({
+  id = "consultas",
+  headline = "Conocenos y presentanos tu caso",
+  intro = `En ${freeConsultation.minutes} minutos, por videollamada, escuchamos lo que necesitás y te orientamos sobre los próximos pasos. Sin costo y sin compromiso.`,
+  paidHref = "#reservar",
+  origin,
+  defaultInterest = "",
+}: FreeConsultationProps = {}) {
   const [status, setStatus] = useState<Status>("idle")
   const [firstName, setFirstName] = useState("")
 
@@ -75,7 +93,7 @@ export function FreeConsultation() {
           interest: data.get("interest"),
           details: data.get("details"),
           website: data.get("website"),
-          source: readAttribution(),
+          source: [readAttribution(), origin ? `landing=${origin}` : ""].filter(Boolean).join(" | "),
         }),
       })
       if (!res.ok) throw new Error("failed")
@@ -88,7 +106,7 @@ export function FreeConsultation() {
   }
 
   return (
-    <section id="consultas" className="relative overflow-hidden bg-green-700 py-16 px-4 scroll-mt-28">
+    <section id={id} className="relative overflow-hidden bg-green-700 py-16 px-4 scroll-mt-28">
       <div
         className="absolute inset-0 opacity-[0.06]"
         style={{
@@ -103,12 +121,9 @@ export function FreeConsultation() {
               Consulta inicial gratuita · hasta el {freeConsultation.endsLabel}
             </Badge>
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-cream-50 leading-tight mb-4">
-              Conocenos y presentanos tu caso
+              {headline}
             </h2>
-            <p className="text-lg text-cream-100/90 mb-6 max-w-xl mx-auto lg:mx-0">
-              En {freeConsultation.minutes} minutos, por videollamada, escuchamos lo que necesitás y te orientamos sobre
-              los próximos pasos. Sin costo y sin compromiso.
-            </p>
+            <p className="text-lg text-cream-100/90 mb-6 max-w-xl mx-auto lg:mx-0">{intro}</p>
 
             <ul className="space-y-3 mb-6 max-w-xl mx-auto lg:mx-0 text-left">
               {benefits.map((benefit) => (
@@ -227,7 +242,7 @@ export function FreeConsultation() {
                       <select
                         id="fc-interest"
                         name="interest"
-                        defaultValue=""
+                        defaultValue={defaultInterest}
                         className="flex h-10 w-full rounded-md border border-gold-200 bg-white px-3 py-2 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-terracotta/40"
                       >
                         <option value="">Elegí una opción</option>
@@ -278,12 +293,14 @@ export function FreeConsultation() {
           </Card>
         </div>
 
-        <p className="text-center mt-10 text-cream-100/80">
-          ¿Preferís elegir día y hora ya mismo?{" "}
-          <a href="#reservar" className="text-gold-200 font-medium underline underline-offset-4 hover:text-cream-50">
-            Reservá una consulta completa de 30 minutos
-          </a>
-        </p>
+        {paidHref && (
+          <p className="text-center mt-10 text-cream-100/80">
+            ¿Preferís elegir día y hora ya mismo?{" "}
+            <a href={paidHref} className="text-gold-200 font-medium underline underline-offset-4 hover:text-cream-50">
+              Reservá una consulta completa de 30 minutos
+            </a>
+          </p>
+        )}
       </div>
     </section>
   )

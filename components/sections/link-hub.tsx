@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { CalendarDays, UserRound, Briefcase, BookOpen, Share2 } from "lucide-react"
+import { BadgeCheck, CalendarDays, UserRound, Briefcase, BookOpen, Share2 } from "lucide-react"
 import { Instagram, Linkedin } from "lucide-react"
 import { TikTokIcon, SubstackIcon } from "@/components/icons"
 import { WhatsAppLinkItem } from "@/components/sections/whatsapp-link-item"
@@ -16,6 +16,13 @@ const links: { id?: string; href: string; icon: typeof CalendarDays; title: stri
     icon: CalendarDays,
     title: "Agendar una Consulta",
     subtitle: "Reservá tu videollamada y pagá online",
+  },
+  {
+    id: "marca",
+    href: "/registra-tu-marca",
+    icon: BadgeCheck,
+    title: "Registrá tu marca",
+    subtitle: "Mirá el camino paso a paso",
   },
   {
     href: "/#equipo",
@@ -52,15 +59,17 @@ const socialIcons = [
 
 export function LinkHub() {
   const freeOfferActive = useFreeOffer()
-  const visibleLinks = links.map((link) =>
-    link.id === "consulta" && freeOfferActive
-      ? {
-          ...link,
-          title: "Consulta inicial gratuita",
-          subtitle: `${freeConsultation.minutes} minutos para presentarnos tu caso`,
-        }
-      : link
-  )
+  const visibleLinks = links
+    .filter((link) => link.id !== "marca" || freeOfferActive)
+    .map((link) =>
+      link.id === "consulta" && freeOfferActive
+        ? {
+            ...link,
+            title: "Consulta inicial gratuita",
+            subtitle: `${freeConsultation.minutes} minutos para presentarnos tu caso`,
+          }
+        : link
+    )
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-700 to-cream-50 flex flex-col items-center px-4 py-14">

@@ -18,8 +18,8 @@ export const siteConfig = {
 export const freeConsultation = {
   enabled: true,
   minutes: 15,
-  endsAt: "2026-10-31T23:59:59-03:00",
-  endsLabel: "31 de octubre",
+  endsAt: "2026-12-31T23:59:59-03:00",
+  endsLabel: "31 de diciembre",
 } as const
 
 export function isFreeConsultationActive(now: Date = new Date()) {

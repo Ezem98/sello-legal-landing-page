@@ -68,7 +68,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: "p",
-        text: "Si la marca está en trámite, podés oponerte durante el proceso de registro (hay un período de oposición de 30 días hábiles desde la publicación en el Boletín de Marcas). Si ya se registró, podés iniciar una acción de nulidad si podés demostrar mala fe o uso previo. Y si la marca ya está vigente y en uso activo por parte de otro, el camino puede ser largo y costoso.",
+        text: "Si la marca está en trámite, podés oponerte durante el proceso de registro (hay un período de oposición de 30 días corridos desde la publicación en el Boletín de Marcas). Si ya se registró, podés iniciar una acción de nulidad si podés demostrar mala fe o uso previo. Y si la marca ya está vigente y en uso activo por parte de otro, el camino puede ser largo y costoso.",
       },
       { type: "p", text: "Ninguna de esas opciones es tan simple ni tan económica como haber registrado a tiempo." },
       { type: "h3", text: "¿Cuándo es el momento ideal para registrar?" },
